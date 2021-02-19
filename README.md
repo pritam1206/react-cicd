@@ -1,2 +1,2 @@
 # react-cicd
-Pipe line set with AWS
+Pipeline setUp with AWS
