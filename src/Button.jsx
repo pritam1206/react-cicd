@@ -1,4 +1,4 @@
 import React from 'react'
 
-  const Button=(props)=> <button>TEST</button>    
+  const Button=(props)=> <button onClick={props.onClick}>TEST</button>    
   export default Button
