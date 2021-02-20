@@ -1,8 +1,8 @@
 export  const Buttons=[{
-    label: 'Clear'
+    label: 'clear'
   },
   {
-    label: 'Delete'
+    label: 'delete'
   },
   {
     label: '.'
