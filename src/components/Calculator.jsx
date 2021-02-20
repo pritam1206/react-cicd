@@ -57,7 +57,7 @@ export default function Calculator() {
     <div className={classes.root}>
     <Grid container>
     <Grid item lg={12} md={12} style={{display:'flex',flexDirection:'column'}}>
-     <TextField  value={inputVal.input}/>
+     <TextField id="input" value={inputVal.input}/>
       <TextField  value={inputVal.result}/>
     </Grid>
     </Grid>
