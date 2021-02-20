@@ -40,6 +40,7 @@ export default function Calculator() {
 
   const onclickHandle=(val)=>{
       console.log(val)
+      setInput(val)
     //   if(val=== '='){
     //       const res=eval(inputVal)
     //    //  setResult(res)
