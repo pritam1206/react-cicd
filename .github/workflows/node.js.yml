@@ -1,40 +1,27 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+version: 0.2
 
-name: Node.js CI
-
-on:
-  push:
-    branches: [ staging ]
-  pull_request:
-    branches: [ staging ]
-
-jobs:
+phases:
+  install:
+    commands:
+      - echo Installing Node 12...
+      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - apt install -y nodejs
+      - echo Installing Yarn...
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      - apt install --no-install-recommends yarn
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - yarn
   build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm run build --if-present
-   
-    - uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
-         artifacts:
-      files:
-        - "**/*"
-      discard-paths: no
-      base-directory: build
+    commands:
+      - echo Testing...
+      - yarn test
+      - echo Building...
+      - yarn build
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
+  base-directory: build
