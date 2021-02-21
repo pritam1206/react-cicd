@@ -31,7 +31,7 @@ jobs:
         run: STAGE=dev npm run build
       
       - name: copy files to s3
-        run: aws s3 sync ./dist s3://react-calculator-demo
+        run: aws s3 sync ./build s3://react-calculator-demo
 
      # - name: Invalidate cache
       #  run: |
